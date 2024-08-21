@@ -1,11 +1,12 @@
 :root {
+  --font-family: "Fira Code", monospace;
   --line-height: 1.25rem;
   --border-thickness: 1.5px;
   --bold-weight: 700;
 
-  font-family: "Source Code Pro", monospace;
+  font-family: var(--font-family);
   font-optical-sizing: auto;
-  font-weight: 450;
+  font-weight: 500;
   font-style: normal;
   font-variant-numeric: tabular-nums lining-nums;
   font-size: 16px;
@@ -71,15 +72,21 @@ h2 {
 
 hr {
   position: relative;
-  top: calc(var(--border-thickness) * -1);
   display: block;
+  height: var(--line-height);
+  margin: calc(var(--line-height) * 2) 0 var(--line-height);
   border: none;
-  border-bottom: 4.5px double #000;
-  color: transparent;
-  height: var(--border-thickness);
-  margin: calc(var(--line-height) * 2 - var(--border-thickness)) 0;
-  /*temp*/
-  display: none;
+  color: #000;
+}
+hr:after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top: calc(var(--border-thickness) * 3) double #000;
+  height: 0;
 }
 
 a {
@@ -159,7 +166,11 @@ p {
 }
 
 pre, code {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
+}
+
+code {
+  font-weight: 600;
 }
 
 figure {
@@ -201,8 +212,8 @@ li {
 }
 .tree ul li {
   position: relative;
-  padding-left: 1ch;
-  margin-left: 1ch;
+  padding-left: 1.5ch;
+  margin-left: 1.5ch;
   border-left: var(--border-thickness) solid #000;
 }
 .tree ul li:before {
@@ -211,7 +222,7 @@ li {
   top: calc(var(--line-height) / 2);
   left: 0;
   content: "";
-  width: calc(var(--line-height) / 2);
+  width: 1ch;
   border-bottom: var(--border-thickness) solid #000;
 }
 .tree ul li:last-child {
@@ -247,5 +258,5 @@ li {
 }
 
 body :not(.grid) {
-  /*background: rgba(255, 0, 0, 0.1);*/
+  background: rgba(255, 0, 0, 0.1);
 }

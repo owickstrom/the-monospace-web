@@ -1,20 +1,23 @@
 ---
-title: The Monotyper Manifesto
-author: John Doe
+title: The Monospace Web
+author: Oskar Wickström
 date: August 2024
+lang: en
 ---
 
 ## Abstract
 
-In this design, the use of monospace fonts and a monochrome color palette is deliberate to enhance clarity and legibility, especially in environments where precision and readability are paramount.
-Monospace fonts, where each character occupies the same horizontal space, ensure uniformity and predictability in text alignment, making them ideal for coding interfaces, technical documentation, and tabular data displays.
+Monospace fonts are dear to many of us. 
+Some find them more readable, consistent, and beautiful, and than their proportional alternatives.
+Maybe we're just brainwashed from spending years in terminals?
+Or are we hopelessly nostalgic?
+In any case, I like them, and that's why I started experimenting with all-monospace Web.
 
-The consistent spacing prevents text from becoming jumbled or misaligned, which can be critical when differentiating between similar-looking characters, such as '1' and 'l' or '0' and 'O'.
-This uniformity contributes to an overall sense of order and structure within the design, aiding users in quickly scanning and understanding the information presented.
+We use the monospace grid to align text and draw diagrams.
 
 ## The Basics
 
-I mean, look at this lovely horizontal break:
+Look at this lovely horizontal break:
 
 <hr>
 
@@ -46,9 +49,9 @@ This is a regular unordered list with a _tree_ class:
     * lib                           
     * bin                           
     * games                         
-        * gamemode-simulate-game 
-        * gamemoderun
-        * gamemodelist
+        * solitaire
+        * snake
+        * tic-tac-toe
     * media                         
 * media                             
 * run                               
