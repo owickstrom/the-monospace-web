@@ -175,7 +175,9 @@ code {
 
 figure {
   margin: calc(var(--line-height) * 2) 3ch;
+  overflow-x: auto;
 }
+
 figcaption {
   display: block;
   font-style: italic;

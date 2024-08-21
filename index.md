@@ -120,11 +120,11 @@ To have it stand out a bit more, we can wrap it in a `<figure>` tag, and why not
 Let's go wild and draw a chart!
 
 <figure><pre>
-                  Things I have.
-                                              ████ Usable
-    │
-15  │                                         ░░░░ Broken
-    │
+                      Things I Have
+                                              
+    │                                     ████ Usable
+15  │
+    │                                     ░░░░ Broken
     │
 12  │             ░            
     │             ░            
