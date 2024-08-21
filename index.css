@@ -1,0 +1,251 @@
+:root {
+  --line-height: 1.25rem;
+  --border-thickness: 1.5px;
+  --bold-weight: 700;
+
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: normal;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+*:first-child {
+  margin: 0;
+}
+
+* + * {
+  margin-top: var(--line-height);
+}
+
+html {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  color: #000;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: var(--line-height) 2ch;
+  max-width: 80ch;
+  line-height: var(--line-height);
+}
+
+@media screen and (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+  body {
+    padding: var(--line-height) 1ch;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--bold-weight);
+  margin: calc(var(--line-height) * 2) 0 0;
+  line-height: var(--line-height);
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: calc(2 * var(--line-height));
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+hr {
+  position: relative;
+  top: calc(var(--border-thickness) * -1);
+  display: block;
+  border: none;
+  border-bottom: 4.5px double #000;
+  color: transparent;
+  height: var(--border-thickness);
+  margin: calc(var(--line-height) * 2 - var(--border-thickness)) 0;
+  /*temp*/
+  display: none;
+}
+
+a {
+  text-decoration-thickness: var(--border-thickness);
+}
+
+a:link {
+  color: #000;
+}
+a:visited {
+  color: #333;
+}
+
+p {
+  margin-top: var(--line-height);
+}
+
+strong {
+  font-weight: var(--bold-weight);
+}
+em {
+  font-style: italic;
+}
+
+sub {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  vertical-align: sub;
+  line-height: 0;
+  width: calc(1ch / 0.75);
+  font-size: .75rem;
+}
+
+table {
+  position: relative;
+  top: calc(var(--line-height) / 2);
+  width: calc(round(down, 100%, 1ch));
+  border-collapse: collapse;
+  margin: var(--line-height) 0 calc(var(--line-height) * 3);
+}
+
+th, td {
+  border: var(--border-thickness) solid #000;
+  padding: 
+    calc((var(--line-height) / 2))
+    calc(1ch - var(--border-thickness) / 2)
+    calc((var(--line-height) / 2) - (var(--border-thickness)))
+  ;
+  line-height: var(--line-height);
+  vertical-align: top;
+  text-align: left;
+}
+table tbody tr:first-child > * {
+  padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
+}
+
+
+th {
+  font-weight: 600;
+}
+.width-min {
+  width: 0%;
+}
+.width-auto {
+  width: 100%;
+}
+
+header {
+  padding: 0;
+}
+
+p {
+  word-break: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+pre, code {
+  font-family: 'Fira Code', monospace;
+}
+
+figure {
+  margin: calc(var(--line-height) * 2) 3ch;
+}
+figcaption {
+  display: block;
+  font-style: italic;
+  margin-top: var(--line-height);
+}
+
+ul, ol {
+  padding: 0;
+  margin: var(--line-height) 0;
+}
+
+ul {
+  list-style-type: square;
+  padding: 0 0 0 2ch;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+::marker {
+  line-height: 0;
+}
+
+.tree, .tree ul {
+  position: relative;
+  padding-left: 0;
+  list-style-type: none;
+  line-height: var(--line-height);
+}
+.tree ul {
+  margin: 0;
+}
+.tree ul li {
+  position: relative;
+  padding-left: 1ch;
+  margin-left: 1ch;
+  border-left: var(--border-thickness) solid #000;
+}
+.tree ul li:before {
+  position: absolute;
+  display: block;
+  top: calc(var(--line-height) / 2);
+  left: 0;
+  content: "";
+  width: calc(var(--line-height) / 2);
+  border-bottom: var(--border-thickness) solid #000;
+}
+.tree ul li:last-child {
+  border-left: none;
+}
+.tree ul li:last-child:after {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  content: "";
+  height: calc(var(--line-height) / 2);
+  border-left: var(--border-thickness) solid #000;
+}
+
+/* DEBUG UTILITIES */
+
+.grid {
+  --color: #eeeeff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image:
+  repeating-linear-gradient(var(--color) 0 1px, transparent 1px 100%),
+  repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
+  background-size: 1ch var(--line-height);
+  margin: 0;
+
+  /*display: none;*/
+}
+
+body :not(.grid) {
+  /*background: rgba(255, 0, 0, 0.1);*/
+}
