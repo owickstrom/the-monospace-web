@@ -1,7 +1,7 @@
 :root {
   --font-family: "Fira Code", monospace;
   --line-height: 1.25rem;
-  --border-thickness: 1px;
+  --border-thickness: 2px;
   --bold-weight: 700;
 
   font-family: var(--font-family);
@@ -74,7 +74,7 @@ hr {
   position: relative;
   display: block;
   height: var(--line-height);
-  margin: calc(var(--line-height) * 2) 0 var(--line-height);
+  margin: calc(var(--line-height) * 1.5) 0;
   border: none;
   color: #000;
 }
@@ -82,7 +82,7 @@ hr:after {
   display: block;
   content: "";
   position: absolute;
-  top: 0;
+  top: calc(var(--line-height) / 2 - var(--border-thickness));
   left: 0;
   width: 100%;
   border-top: calc(var(--border-thickness) * 3) double #000;
@@ -165,7 +165,7 @@ p {
   hyphens: auto;
 }
 
-img {
+img, video {
   --real-height: 100% / var(--ratio);
 
   display: block;
@@ -277,5 +277,5 @@ li {
 }
 
 body :not(.grid) {
-  background: rgba(255, 0, 0, 0.1);
+  /*background: rgba(255, 0, 0, 0.1);*/
 }
