@@ -3,6 +3,8 @@
   --line-height: 1.25rem;
   --border-thickness: 2px;
   --bold-weight: 700;
+  --text-color: #000;
+  --background-color: #fff;
 
   font-family: var(--font-family);
   font-optical-sizing: auto;
@@ -32,8 +34,8 @@ html {
   padding: 0;
   flex-direction: column;
   align-items: center;
-  background: #fff;
-  color: #000;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 body {
@@ -76,7 +78,7 @@ hr {
   height: var(--line-height);
   margin: calc(var(--line-height) * 1.5) 0;
   border: none;
-  color: #000;
+  color: var(--text-color);
 }
 hr:after {
   display: block;
@@ -85,7 +87,7 @@ hr:after {
   top: calc(var(--line-height) / 2 - var(--border-thickness));
   left: 0;
   width: 100%;
-  border-top: calc(var(--border-thickness) * 3) double #000;
+  border-top: calc(var(--border-thickness) * 3) double var(--text-color);
   height: 0;
 }
 
@@ -93,11 +95,8 @@ a {
   text-decoration-thickness: var(--border-thickness);
 }
 
-a:link {
-  color: #000;
-}
-a:visited {
-  color: #333;
+a:link, a:visited {
+  color: var(--text-color);
 }
 
 p {
@@ -130,7 +129,7 @@ table {
 }
 
 th, td {
-  border: var(--border-thickness) solid #000;
+  border: var(--border-thickness) solid var(--text-color);
   padding: 
     calc((var(--line-height) / 2))
     calc(1ch - var(--border-thickness) / 2)
@@ -233,7 +232,7 @@ li {
   position: relative;
   padding-left: 1.5ch;
   margin-left: 1.5ch;
-  border-left: var(--border-thickness) solid #000;
+  border-left: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:before {
   position: absolute;
@@ -242,7 +241,7 @@ li {
   left: 0;
   content: "";
   width: 1ch;
-  border-bottom: var(--border-thickness) solid #000;
+  border-bottom: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:last-child {
   border-left: none;
@@ -254,13 +253,13 @@ li {
   left: 0;
   content: "";
   height: calc(var(--line-height) / 2);
-  border-left: var(--border-thickness) solid #000;
+  border-left: var(--border-thickness) solid var(--text-color);
 }
 
 /* DEBUG UTILITIES */
 
 .grid {
-  --color: #eeeeff;
+  --color: color-mix(in srgb, var(--text-color) 10%, var(--background-color) 90%);
   position: absolute;
   top: 0;
   left: 0;
@@ -268,8 +267,8 @@ li {
   bottom: 0;
   z-index: -1;
   background-image:
-  repeating-linear-gradient(var(--color) 0 1px, transparent 1px 100%),
-  repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
+    repeating-linear-gradient(var(--color) 0 1px, transparent 1px 100%),
+    repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
   background-size: 1ch var(--line-height);
   margin: 0;
 
@@ -278,4 +277,11 @@ li {
 
 body :not(.grid) {
   /*background: rgba(255, 0, 0, 0.1);*/
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #fff;
+    --background-color: #000;
+  }
 }
