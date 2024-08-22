@@ -1,7 +1,7 @@
 :root {
   --font-family: "Fira Code", monospace;
   --line-height: 1.25rem;
-  --border-thickness: 1.5px;
+  --border-thickness: 1px;
   --bold-weight: 700;
 
   font-family: var(--font-family);
@@ -41,7 +41,7 @@ body {
   width: 100%;
   margin: 0;
   padding: var(--line-height) 2ch;
-  max-width: 80ch;
+  max-width: calc(min(80ch, round(down, 100%, 1ch)));
   line-height: var(--line-height);
 }
 
@@ -163,6 +163,23 @@ p {
   word-break: break-word;
   word-wrap: break-word;
   hyphens: auto;
+}
+
+img {
+  --real-height: 100% / var(--ratio);
+
+  display: block;
+  width: 100%;
+  padding-bottom: calc(
+    round(
+      down, 
+      var(--line-height) - (
+        var(--real-height) - round(down, var(--real-height), var(--line-height))
+      ),
+      1px
+    )
+  );
+  object-fit: contain;
 }
 
 pre, code {

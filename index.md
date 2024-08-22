@@ -141,3 +141,7 @@ Let's go wild and draw a chart!
  0  └───▀─────────▀─────────▀──────────▀─────────────
       Socks     Jeans     Shirts   USB Drives
 </pre></figure>
+
+## Images
+
+![A room in an old French castle.](castle.jpg)
