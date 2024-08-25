@@ -52,7 +52,7 @@ function checkOffsets() {
   const config = { childList: true, subtree: true };
 
   const callback = () => {
-    const elements = document.querySelectorAll("body *");
+    const elements = document.querySelectorAll("body :not(.grid)");
     for (const element of elements) {
       const offset = element.offsetTop % 10;
       if(element.offsetParent == document.body && offset > 0) {
@@ -71,3 +71,8 @@ function checkOffsets() {
 }
 
 window.addEventListener("load", checkOffsets);
+
+const debugButton = document.querySelector(".debug-toggle");
+debugButton.addEventListener("click", () => {
+  document.body.classList.toggle("debug");
+});

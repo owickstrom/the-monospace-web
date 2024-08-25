@@ -3,6 +3,7 @@ title: The Monospace Web
 author: Oskar Wickström
 date: August 2024
 lang: en
+toc-title: Contents
 ---
 
 ## Introduction

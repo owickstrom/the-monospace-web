@@ -268,7 +268,7 @@ li {
 
 /* DEBUG UTILITIES */
 
-.grid {
+.debug .grid {
   --color: color-mix(in srgb, var(--text-color) 10%, var(--background-color) 90%);
   position: absolute;
   top: 0;
@@ -281,10 +281,15 @@ li {
     repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
   background-size: 1ch var(--line-height);
   margin: 0;
-
-  /*display: none;*/
 }
 
-.off-grid {
+.debug .off-grid {
   background: rgba(255, 0, 0, 0.1);
+}
+
+.debug-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: var(--line-height) 2ch;
 }
