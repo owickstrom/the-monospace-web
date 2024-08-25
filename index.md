@@ -225,3 +225,5 @@ Join the discussion in any of the following threads:
 * X/Twitter
 * Lobsters
 * Hacker News
+
+Finally, a massive shout-out to [U.S. Graphics Company](https://x.com/usgraphics) for all the inspiration.
