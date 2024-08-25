@@ -332,31 +332,23 @@ label input {
 }
 
 .grid {
+  --grid-cells: 0;
   display: flex;
   gap: 1ch;
+  width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
 }
 .grid > * {
-  flex: 0 0 auto;
+  flex: 0 0 calc(round(down, (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells), 1ch));
 }
-.grid:has(> :last-child:nth-child(1)) {
-  width: calc(round(down, 100%, 1ch));
-}
-.grid:has(> :last-child:nth-child(2)) { 
-  width: calc(round(down, 100%, 2ch) - 1ch);
-}
-.grid:has(> :last-child:nth-child(3)) { 
-  width: calc(round(down, 100%, 3ch) - 2ch);
-}
-
-.grid:has(> :last-child:nth-child(1)) > * {
-  flex-basis: calc(round(down, 100%, 1ch));
-}
-.grid:has(> :last-child:nth-child(2)) > * {
-  flex-basis: calc(round(down, (100%-1ch)/2, 1ch));
-}
-.grid:has(> :last-child:nth-child(3)) > * {
-  flex-basis: calc(round(down, (100% - 2ch) / 3, 1ch));
-}
+.grid:has(> :last-child:nth-child(1)) { --grid-cells: 1; }
+.grid:has(> :last-child:nth-child(2)) { --grid-cells: 2; }
+.grid:has(> :last-child:nth-child(3)) { --grid-cells: 3; }
+.grid:has(> :last-child:nth-child(4)) { --grid-cells: 4; }
+.grid:has(> :last-child:nth-child(5)) { --grid-cells: 5; }
+.grid:has(> :last-child:nth-child(6)) { --grid-cells: 6; }
+.grid:has(> :last-child:nth-child(7)) { --grid-cells: 7; }
+.grid:has(> :last-child:nth-child(8)) { --grid-cells: 8; }
+.grid:has(> :last-child:nth-child(9)) { --grid-cells: 9; }
 
 /* DEBUG UTILITIES */
 
