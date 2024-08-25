@@ -34,25 +34,32 @@ $endif$
 $for(include-before)$
 $include-before$
 $endfor$
-$if(title)$
-<header>
-<h1 class="title">$title$</h1>
-$if(subtitle)$
-<p class="subtitle">$subtitle$</p>
-$endif$
-$for(author)$
-<p class="author"><cite>$author$</cite></p>
-$endfor$
-$if(date)$
-<p class="date">$date$</p>
-$endif$
+<table class="header">
+  <tr>
+    <td colspan="2" rowspan="2" class="width-auto">
+      <h1 class="title">$title$</h1>
+      <span class="subtitle">$subtitle$</span>
+    </td>
+    <th>Version</th>
+    <td class="width-min">$version$</td>
+  </tr>
+  <tr>
+    <th>Updated:</th>
+    <td class="width-min">$date$</td>
+  </tr>
+  <tr>
+    <th class="width-min">Author</th>
+    <td class="width-auto"><cite>$author$</cite></td>
+    <th class="width-min">License</th>
+    <td>MIT</td>
+  </tr>
+</table>
+<label class="debug-toggle-label"><input type="checkbox" class="debug-toggle" /> Debug mode</label>
 $if(abstract)$
 <div class="abstract">
 <div class="abstract-title">$abstract-title$</div>
 $abstract$
 </div>
-$endif$
-</header>
 $endif$
 $if(toc)$
 <nav id="$idprefix$TOC" role="doc-toc">
@@ -67,7 +74,6 @@ $for(include-after)$
 $include-after$
 $endfor$
   <div class="debug-grid"></div>
-  <button class="debug-toggle">Debug</button>
   <script src="index.js"></script>
 </body>
 </html>

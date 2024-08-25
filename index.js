@@ -52,7 +52,7 @@ function checkOffsets() {
   const config = { childList: true, subtree: true };
 
   const callback = () => {
-    const elements = document.querySelectorAll("body :not(.debug-grid)");
+    const elements = document.querySelectorAll("body :not(.debug-grid, .debug-toggle)");
     for (const element of elements) {
       const offset = element.offsetTop % 10;
       if(element.offsetParent == document.body && offset > 0) {
@@ -70,9 +70,9 @@ function checkOffsets() {
   observer.observe(targetNode, config);
 }
 
-window.addEventListener("load", checkOffsets);
-
-const debugButton = document.querySelector(".debug-toggle");
-debugButton.addEventListener("click", () => {
-  document.body.classList.toggle("debug");
-});
+const debugToggle = document.querySelector(".debug-toggle");
+function onDebugToggle() {
+  document.body.classList.toggle("debug", debugToggle.checked);
+}
+debugToggle.addEventListener("change", onDebugToggle);
+onDebugToggle();

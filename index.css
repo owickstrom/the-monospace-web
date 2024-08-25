@@ -156,7 +156,7 @@ table tbody tr:first-child > * {
 
 
 th {
-  font-weight: 600;
+  font-weight: 700;
 }
 .width-min {
   width: 0%;
@@ -165,8 +165,11 @@ th {
   width: 100%;
 }
 
-header {
-  padding: 0;
+.header {
+  margin-bottom: calc(var(--line-height) * 2);
+}
+.header tr td:last-child {
+  text-align: right;
 }
 
 p {
@@ -218,6 +221,19 @@ ul {
   list-style-type: square;
   padding: 0 0 0 2ch;
 }
+ol {
+  list-style-type: none;
+  counter-reset: item;
+  padding: 0;
+}
+ol ol {
+  padding: 0 0 0 3ch;
+}
+ol li:before { 
+  content: counters(item, ".") ". ";
+  counter-increment: item;
+  font-weight: 600;
+}
 
 li {
   margin: 0;
@@ -248,6 +264,21 @@ input, button, textarea {
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
+}
+
+input[type=checkbox] {
+  display: inline-grid;
+  place-content: center;
+  vertical-align: middle;
+  width: 2ch;
+  height: var(--line-height);
+  cursor: pointer;
+}
+input[type=checkbox]:checked:before {
+  content: "";
+  width: 1ch;
+  height: calc(var(--line-height) / 2);
+  background: var(--text-color);
 }
 
 button:focus, input:focus {
@@ -373,9 +404,6 @@ label input {
   background: rgba(255, 0, 0, 0.1);
 }
 
-.debug-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: var(--line-height) 2ch;
+.debug-toggle-label {
+  text-align: right;
 }

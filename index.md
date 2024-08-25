@@ -1,9 +1,11 @@
 ---
 title: The Monospace Web
+subtitle: A minimalist design exploration
 author: Oskar Wickström
-date: August 2024
+date: 2024-08-30
 lang: en
 toc-title: Contents
+version: v0.1.0
 ---
 
 ## Introduction
@@ -28,21 +30,34 @@ I might update it over time with improvements and support for more standard elem
 
 ## The Basics
 
-Look at this lovely horizontal break:
+Regular old semantic HTML should render nicely. 
+This document uses a few extra classes here and there, but mostly it's just markup.
+
+Look at this horizontal break:
 
 <hr>
 
-Or a plain old bulleted list:
+Lovely.
+
+## Lists
+
+This is a plain old bulleted list:
 
 * Banana
 * Paper boat
 * Cucumber
 * Rocket
 
-## Trees
+Ordered lists look pretty much as you'd expect:
+
+1. Goals
+1. Motivations
+    1. Intrinsic
+    1. Extrinsic
+1. Second-order effects
 
 It's nice to visualize trees.
-This is a regular unordered list with a _tree_ class:
+This is a regular unordered list with a `tree` class:
 
 <ul class="tree">
 <li>
@@ -129,7 +144,7 @@ Here are six grids with increasing cell count:
 <div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3" /><input readonly value="4" /><input readonly value="5" /></div>
 <div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3" /><input readonly value="4" /><input readonly value="5" /><input readonly value="6" /></div>
 
-If you want one cell to fill the remainder, set `flex-grow: 1;` for that particular cell.
+If we want one cell to fill the remainder, we set `flex-grow: 1;` for that particular cell.
 
 <div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3!" style="flex-grow: 1;" /><input readonly value="4" /><input readonly value="5" /><input readonly value="6" /></div>
 
@@ -196,3 +211,15 @@ Media objects are supported, like images and video:
 ![[The Center of the Web (1914), Wikimedia](https://en.wikisource.org/wiki/Page:The_Center_of_the_Web_(1914).webm/11)](https://upload.wikimedia.org/wikipedia/commons/e/e0/The_Center_of_the_Web_%281914%29.webm)
 
 They extend to the width of the page, and add appropriate padding in the bottom to maintain the monospace grid.
+
+## Discussion
+
+That's it for now.
+I've very much enjoyed making this, pushing my CSS chops and having a lot of fun with the design.
+If you like it or even decide to use it, please [let me know](https://x.com/owickstrom).
+
+Join the discussion in any of the following threads:
+
+* X/Twitter
+* Lobsters
+* Hacker News
