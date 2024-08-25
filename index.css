@@ -178,10 +178,8 @@ img, video {
   width: 100%;
   padding-bottom: calc(
     round(
-      up, 
-      var(--line-height) - (
-        var(--real-height) - round(down, var(--real-height), var(--line-height))
-      ),
+      nearest, 
+      round(up, var(--real-height), var(--line-height)) - var(--real-height),
       1px
     )
   );
@@ -225,6 +223,11 @@ li {
 ::marker {
   line-height: 0;
 }
+
+::-webkit-scrollbar {
+    height: var(--line-height);
+}
+
 
 .tree, .tree ul {
   position: relative;
@@ -282,6 +285,6 @@ li {
   /*display: none;*/
 }
 
-body :not(.grid) {
+.off-grid {
   background: rgba(255, 0, 0, 0.1);
 }
