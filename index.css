@@ -337,7 +337,9 @@ label input {
   gap: 1ch;
   width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
 }
-.grid > * {
+
+.grid > *,
+.grid > input {
   flex: 0 0 calc(round(down, (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells), 1ch));
 }
 .grid:has(> :last-child:nth-child(1)) { --grid-cells: 1; }

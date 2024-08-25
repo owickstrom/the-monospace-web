@@ -111,6 +111,23 @@ And inputs:
 <label>Age <input type="text" value="30" /></label>
 </form>
 
+## Grids
+
+Add the `grid` class to a container to divide up the horizontal space evenly for the cells.
+Not that it maintains the grid, so the total width might not be 100%.
+Here are six grids with increasing cell count:
+
+<div class="grid"><input readonly value="1" /></div>
+<div class="grid"><input readonly value="1" /><input readonly value="2" /></div>
+<div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3" /></div>
+<div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3" /><input readonly value="4" /></div>
+<div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3" /><input readonly value="4" /><input readonly value="5" /></div>
+<div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3" /><input readonly value="4" /><input readonly value="5" /><input readonly value="6" /></div>
+
+If you want one cell to fill the remainder, set `flex-grow: 1;` for that particular cell.
+
+<div class="grid"><input readonly value="1" /><input readonly value="2" /><input readonly value="3!" style="flex-grow: 1;" /><input readonly value="4" /><input readonly value="5" /><input readonly value="6" /></div>
+
 ## ASCII Drawings
 
 We can draw in `<pre>` tags using [box-drawing characters](https://en.wikipedia.org/wiki/Box-drawing_characters):
