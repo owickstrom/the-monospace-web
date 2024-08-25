@@ -52,7 +52,7 @@ function checkOffsets() {
   const config = { childList: true, subtree: true };
 
   const callback = () => {
-    const elements = document.querySelectorAll("body :not(.grid)");
+    const elements = document.querySelectorAll("body :not(.debug-grid)");
     for (const element of elements) {
       const offset = element.offsetTop % 10;
       if(element.offsetParent == document.body && offset > 0) {

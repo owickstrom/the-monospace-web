@@ -94,6 +94,23 @@ They're responsive.
 
 Note that only one column is allowed to grow.
 
+## Forms
+
+Here are some buttons:
+
+<nav>
+    <button>Reset</button>
+    <button>Save</button>
+</nav>
+
+And inputs:
+
+<form class="grid">
+<label>First name <input type="text" placeholder="Placeholder..." /></label>
+<label>Last name <input type="text" placeholder="Text goes here..." /></label>
+<label>Age <input type="text" value="30" /></label>
+</form>
+
 ## ASCII Drawings
 
 We can draw in `<pre>` tags using [box-drawing characters](https://en.wikipedia.org/wiki/Box-drawing_characters):

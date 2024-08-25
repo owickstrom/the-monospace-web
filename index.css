@@ -4,7 +4,9 @@
   --border-thickness: 2px;
   --bold-weight: 700;
   --text-color: #000;
+  --text-color-alt: #666;
   --background-color: #fff;
+  --background-color-alt: #eee;
 
   font-family: var(--font-family);
   font-optical-sizing: auto;
@@ -17,7 +19,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: #fff;
+    --text-color-alt: #aaa;
     --background-color: #000;
+    --background-color-alt: #111;
   }
 }
 
@@ -228,6 +232,67 @@ li {
     height: var(--line-height);
 }
 
+input, button, textarea {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: 
+    calc(var(--line-height) / 2 - var(--border-thickness))
+    calc(1ch - var(--border-thickness));
+  margin: 0;
+  font: inherit;
+  font-weight: inherit;
+  height: calc(var(--line-height) * 2);
+  width: auto;
+  overflow: visible;
+  background: var(--background-color);
+     line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
+button:focus, input:focus {
+  --border-thickness: 3px;
+  outline: none;
+}
+
+input {
+  width: calc(round(down, 100%, 1ch));
+}
+::placeholder {
+  color: var(--text-color-alt);
+  opacity: 1;
+}
+::-ms-input-placeholder {
+  color: var(--text-color-alt);
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0
+}
+
+button {
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--background-color-alt);
+}
+button:active {
+  transform: translate(2px, 2px);
+}
+
+label {
+  display: block;
+  width: calc(round(down, 100%, 1ch));
+  font-weight: 600;
+  margin: 0;
+}
+
+label input {
+  width: 100%;
+}
 
 .tree, .tree ul {
   position: relative;
@@ -266,9 +331,36 @@ li {
   border-left: var(--border-thickness) solid var(--text-color);
 }
 
+.grid {
+  display: flex;
+  gap: 1ch;
+}
+.grid > * {
+  flex: 0 0 auto;
+}
+.grid:has(> :last-child:nth-child(1)) {
+  width: calc(round(down, 100%, 1ch));
+}
+.grid:has(> :last-child:nth-child(2)) { 
+  width: calc(round(down, 100%, 2ch) - 1ch);
+}
+.grid:has(> :last-child:nth-child(3)) { 
+  width: calc(round(down, 100%, 3ch) - 2ch);
+}
+
+.grid:has(> :last-child:nth-child(1)) > * {
+  flex-basis: calc(round(down, 100%, 1ch));
+}
+.grid:has(> :last-child:nth-child(2)) > * {
+  flex-basis: calc(round(down, (100%-1ch)/2, 1ch));
+}
+.grid:has(> :last-child:nth-child(3)) > * {
+  flex-basis: calc(round(down, (100% - 2ch) / 3, 1ch));
+}
+
 /* DEBUG UTILITIES */
 
-.debug .grid {
+.debug .debug-grid {
   --color: color-mix(in srgb, var(--text-color) 10%, var(--background-color) 90%);
   position: absolute;
   top: 0;
