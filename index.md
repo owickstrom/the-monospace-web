@@ -218,6 +218,8 @@ That's it for now.
 I've very much enjoyed making this, pushing my CSS chops and having a lot of fun with the design.
 If you like it or even decide to use it, please [let me know](https://x.com/owickstrom).
 
+The full source code is here: [github.com/owickstrom/the-monospace-web](https://github.com/owickstrom/the-monospace-web)
+
 Join the discussion in any of the following threads:
 
 * X/Twitter
