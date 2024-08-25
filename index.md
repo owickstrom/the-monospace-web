@@ -30,8 +30,8 @@ I might update it over time with improvements and support for more standard elem
 
 ## The Basics
 
-Regular old semantic HTML should render nicely. 
 This document uses a few extra classes here and there, but mostly it's just markup.
+This, for instance, is a regular paragraph.
 
 Look at this horizontal break:
 
