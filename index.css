@@ -260,7 +260,8 @@ input, button, textarea {
   width: auto;
   overflow: visible;
   background: var(--background-color);
-     line-height: normal;
+  color: var(--text-color);
+  line-height: normal;
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
