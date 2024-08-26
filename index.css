@@ -193,6 +193,11 @@ img, video {
   object-fit: contain;
 }
 
+pre {
+  white-space: pre;
+  overflow-x: auto;
+}
+
 pre, code {
   font-family: var(--font-family);
 }
