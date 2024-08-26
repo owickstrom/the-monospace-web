@@ -193,6 +193,26 @@ img, video {
   object-fit: contain;
 }
 
+details {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
+}
+
+summary {
+  font-weight: 600;
+  margin-bottom: var(--line-height);
+}
+
+details ::marker {
+  display: inline-block;
+  content: '►';
+  margin: 0;
+}
+
+details :last-child {
+  margin-bottom: 0;
+}
+
 pre {
   white-space: pre;
   overflow-x: auto;
@@ -245,7 +265,7 @@ li {
   padding: 0;
 }
 
-::marker {
+li::marker {
   line-height: 0;
 }
 
@@ -275,7 +295,7 @@ input, button, textarea {
 input[type=checkbox] {
   display: inline-grid;
   place-content: center;
-  vertical-align: middle;
+  vertical-align: top;
   width: 2ch;
   height: var(--line-height);
   cursor: pointer;
@@ -323,6 +343,8 @@ button:active {
 label {
   display: block;
   width: calc(round(down, 100%, 1ch));
+  height: auto;
+  line-height: var(--line-height);
   font-weight: 600;
   margin: 0;
 }

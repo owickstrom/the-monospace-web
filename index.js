@@ -48,26 +48,16 @@ function setRatios() {
 setRatios();
 
 function checkOffsets() {
-  const targetNode = document.body;
-  const config = { childList: true, subtree: true };
-
-  const callback = () => {
-    const elements = document.querySelectorAll("body :not(.debug-grid, .debug-toggle)");
-    for (const element of elements) {
-      const offset = element.offsetTop % 10;
-      if(element.offsetParent == document.body && offset > 0) {
-        element.classList.add("off-grid");
-        console.error("Incorrect vertical offset:", element, element.offsetTop % 20);
-      } else {
-        element.classList.remove("off-grid");
-      }
+  const elements = document.querySelectorAll("body :not(.debug-grid, .debug-toggle)");
+  for (const element of elements) {
+    const offset = element.offsetTop % 10;
+    if(element.offsetParent == document.body && offset > 0) {
+      element.classList.add("off-grid");
+      console.error("Incorrect vertical offset:", element, element.offsetTop % 20);
+    } else {
+      element.classList.remove("off-grid");
     }
-  };
-
-  callback();
-
-  const observer = new MutationObserver(callback);
-  observer.observe(targetNode, config);
+  }
 }
 
 const debugToggle = document.querySelector(".debug-toggle");
