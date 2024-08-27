@@ -179,18 +179,8 @@ p {
 }
 
 img, video {
-  --real-height: 100% / var(--ratio);
-
   display: block;
   width: 100%;
-  padding-bottom: calc(
-      round(
-        up, 
-        var(--real-height), 
-        var(--line-height)
-      ) 
-      - var(--real-height)
-  );
   object-fit: contain;
 }
 

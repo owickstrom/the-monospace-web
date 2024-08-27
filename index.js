@@ -15,48 +15,67 @@ function gridCellDimensions() {
   return { width: rect.width, height: rect.height };
 }
 
-const defaultRatio = 16/9;
 
 // Set the ratio variable on each media.
 function setRatios() {
+  const cell = gridCellDimensions();
+
+  function onMediaLoaded(media) {
+    var width, height;
+    switch (media.tagName) {
+      case "IMG":
+        width = media.naturalWidth;
+        height = media.naturalHeight;
+        break;
+      case "VIDEO":
+        width = media.videoWidth;
+        height = media.videoHeight;
+        break;
+    }
+    if (width > 0 && height > 0) {
+      const rect = media.getBoundingClientRect();
+      const ratio = width / height;
+      const realHeight = rect.width / ratio;
+      const diff = cell.height - (realHeight % cell.height);
+      media.style.setProperty("padding-bottom", `${diff}px`);
+    }
+  }
+
   const medias = document.querySelectorAll("img, video");
   for (media of medias) {
-    function onLoaded() {
-      var ratio = defaultRatio;
-      switch (media.tagName) {
-        case "IMG":
-          ratio = media.naturalWidth / media.naturalHeight;
-          break;
-        case "VIDEO":
-          ratio = media.videoWidth / media.videoHeight;
-          break;
-      }
-      if (ratio != NaN) {
-        console.log("Setting ratio", ratio, "for element", media);
-        media.style.setProperty("--ratio", ratio);
-      }
+    switch (media.tagName) {
+      case "IMG":
+        if (media.complete) {
+          onMediaLoaded(media);
+        } else {
+          media.addEventListener("load", () => onMediaLoaded(media));
+          media.addEventListener("error", function() {
+              console.error(media);
+          });
+        }
+        break;
+      case "VIDEO":
+        switch (media.readyState) {
+          case HTMLMediaElement.HAVE_CURRENT_DATA:
+          case HTMLMediaElement.HAVE_FUTURE_DATA:
+          case HTMLMediaElement.HAVE_ENOUGH_DATA:
+            onMediaLoaded(media);
+            break;
+          default:
+            media.addEventListener("loadeddata", () => onMediaLoaded(media));
+            media.addEventListener("error", function() {
+                console.error(media);
+            });
+            break;
+        }
+        break;
     }
-      switch (media.tagName) {
-        case "IMG":
-          if (!media.loaded) {
-            media.style.setProperty("--ratio", defaultRatio); // default while loading
-            firstEvent(media, "load").then(onLoaded);
-            console.log("Image loaded", media);
-          }
-          break;
-        case "VIDEO":
-          if (media.readyState != 4) {
-            media.style.setProperty("--ratio", defaultRatio); // default while loading
-            firstEvent(media, "loadeddata").then(onLoaded);
-            console.log("Video ready", media);
-          }
-          break;
-      }
-      onLoaded();
   }
 }
 
 setRatios();
+window.addEventListener("load", setRatios);
+window.addEventListener("resize", setRatios);
 
 function checkOffsets() {
   const ignoredTagNames = new Set([
