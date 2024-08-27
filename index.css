@@ -9,6 +9,11 @@
   --background-color: #fff;
   --background-color-alt: #eee;
 
+  --chart-border-color: #fff;
+  --chart-border-type: solid;
+  --chart-value-empty-color: #666;
+  --chart-value-full-color: #fff;
+  
   --font-weight-normal: 500;
   --font-weight-medium: 600;
   --font-weight-bold: 800;
@@ -445,4 +450,74 @@ label input {
 
 .debug-toggle-label {
   text-align: right;
+}
+
+.chart {
+  font-family: monospace;
+  display: inline-flex;
+  padding: 1em 3em;
+  background-color: var(--chart-bg-color);
+  color: var(--text-color);
+}
+
+.chart .col {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  text-align: center;
+}
+
+.chart .col ol {
+  margin-bottom: 0;
+}
+
+.chart .col .col-label {
+  padding: 0.5em 1em 0;
+  margin-top: 0;
+}
+
+.chart .col:not(:first-child) .col-label {
+  border-top: 2px var(--chart-border-type) var(--chart-border-color);
+}
+
+.chart ol[reversed] {
+  padding: 0;
+  margin: 0;
+  counter-reset: chart 16;
+}
+
+.chart ol[reversed] li {
+  border-right: 2px solid;
+}
+
+.chart ol[reversed] li::before { 
+  content: counters(chart, "") "";
+  counter-increment: chart -1; /* Decrement the counter */
+  font-weight: var(--font-weight-medium);
+}
+
+.chart ol[reversed] li:nth-child(odd)::before {
+  content: '\\';
+  opacity: 0;
+}
+
+.chart ol[reversed] li:nth-child(odd) {
+  /* list-style: decimal; */
+  content: '';
+}
+
+.chart .legend .entry {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.25em;
+}
+
+.chart .value-full::before {
+  content: '█';
+  color: var(--chart-value-full-color);
+}
+
+.chart .value-empty::before {
+  content: '░';
+  color: var(--chart-value-empty-color);
 }
