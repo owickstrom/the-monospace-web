@@ -2,6 +2,7 @@
 title: The Monospace Web
 subtitle: A minimalist design exploration
 author: Oskar Wickström
+author-url: "https://wickstrom.tech"
 date: 2024-08-26
 lang: en
 toc-title: Contents
@@ -23,7 +24,7 @@ The page is responsive, shrinking in character-sized steps.
 Standard elements should _just work_, at least that's the goal.
 It's semantic HTML, rendered as if we were back in the 70s.
 
-I don't take this too seriously. 
+All right, but is this even a good idea?
 It's a technical and creative challenge and I like the aestethic.
 If you'd like to use it, feel free to fork or copy the bits you need, respecting the license.
 I might update it over time with improvements and support for more standard elements.
