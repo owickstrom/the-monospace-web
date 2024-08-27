@@ -1,9 +1,3 @@
-function firstEvent(element, name) {
-  return new Promise(resolve => {
-    element.addEventListener(name, resolve);
-  });
-}
-
 function gridCellDimensions() {
   const element = document.createElement("div");
   element.style.position = "fixed";
@@ -15,9 +9,8 @@ function gridCellDimensions() {
   return { width: rect.width, height: rect.height };
 }
 
-
-// Set the ratio variable on each media.
-function setRatios() {
+// Add padding to each media to maintain grid.
+function adjustMediaPadding() {
   const cell = gridCellDimensions();
 
   function onMediaLoaded(media) {
@@ -73,9 +66,9 @@ function setRatios() {
   }
 }
 
-setRatios();
-window.addEventListener("load", setRatios);
-window.addEventListener("resize", setRatios);
+adjustMediaPadding();
+window.addEventListener("load", adjustMediaPadding);
+window.addEventListener("resize", adjustMediaPadding);
 
 function checkOffsets() {
   const ignoredTagNames = new Set([
