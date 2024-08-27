@@ -1,16 +1,21 @@
+@import url('https://fonts.cdnfonts.com/css/jetbrains-mono-2');
+
 :root {
-  --font-family: "Fira Code", monospace;
-  --line-height: 1.25rem;
+  --font-family: "JetBrains Mono", monospace;
+  --line-height: 1.20rem;
   --border-thickness: 2px;
-  --bold-weight: 700;
   --text-color: #000;
   --text-color-alt: #666;
   --background-color: #fff;
   --background-color-alt: #eee;
 
+  --font-weight-normal: 500;
+  --font-weight-medium: 600;
+  --font-weight-bold: 800;
+
   font-family: var(--font-family);
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: var(--font-weight-normal);
   font-style: normal;
   font-variant-numeric: tabular-nums lining-nums;
   font-size: 16px;
@@ -64,7 +69,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: var(--bold-weight);
+  font-weight: var(--font-weight-bold);
   margin: calc(var(--line-height) * 2) 0 var(--line-height);
   line-height: var(--line-height);
 }
@@ -112,7 +117,7 @@ p {
 }
 
 strong {
-  font-weight: var(--bold-weight);
+  font-weight: var(--font-weight-bold);
 }
 em {
   font-style: italic;
@@ -191,7 +196,7 @@ details {
 }
 
 summary {
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
 }
 details[open] summary {
   margin-bottom: var(--line-height);
@@ -199,7 +204,7 @@ details[open] summary {
 
 details ::marker {
   display: inline-block;
-  content: '►';
+  content: '▶';
   margin: 0;
 }
 details[open] ::marker {
@@ -224,7 +229,7 @@ pre, code {
 }
 
 code {
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
 }
 
 figure {
@@ -262,7 +267,7 @@ ul ul {
 ol li:before { 
   content: counters(item, ".") ". ";
   counter-increment: item;
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
 }
 
 li {
@@ -334,7 +339,7 @@ button::-moz-focus-inner {
 
 button {
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
 }
 
@@ -350,7 +355,7 @@ label {
   width: calc(round(down, 100%, 1ch));
   height: auto;
   line-height: var(--line-height);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   margin: 0;
 }
 
