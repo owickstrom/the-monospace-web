@@ -453,7 +453,6 @@ label input {
 }
 
 .chart {
-  font-family: monospace;
   display: inline-flex;
   padding: 1em 3em;
   background-color: var(--chart-bg-color);
