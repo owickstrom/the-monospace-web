@@ -2,7 +2,7 @@
 title: The Monospace Web
 subtitle: A minimalist design exploration
 author: Oskar Wickström
-date: 2024-08-30
+date: 2024-08-26
 lang: en
 toc-title: Contents
 version: v0.1.0
@@ -64,10 +64,7 @@ Ordered lists look pretty much as you'd expect:
 It's nice to visualize trees.
 This is a regular unordered list with a `tree` class:
 
-<ul class="tree">
-<li>
-
-**/dev/nvme0n1p2**
+<ul class="tree"><li><p style="margin: 0;"><strong>/dev/nvme0n1p2</strong></p>
 
 * usr                               
     * local                         
@@ -87,8 +84,8 @@ This is a regular unordered list with a `tree` class:
 * media                             
 * run                               
 * tmp                               
-</li>
-</ul>
+
+</li></ul>
 
 ## Tables
 

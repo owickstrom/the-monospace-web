@@ -4,6 +4,17 @@ function firstEvent(element, name) {
   });
 }
 
+function gridCellDimensions() {
+  const element = document.createElement("div");
+  element.style.position = "fixed";
+  element.style.height = "var(--line-height)";
+  element.style.width = "1ch";
+  document.body.appendChild(element);
+  const rect = element.getBoundingClientRect();
+  document.body.removeChild(element);
+  return { width: rect.width, height: rect.height };
+}
+
 const defaultRatio = 16/9;
 
 // Set the ratio variable on each media.
@@ -17,13 +28,13 @@ function setRatios() {
           ratio = media.naturalWidth / media.naturalHeight;
           break;
         case "VIDEO":
-          if (media.videoWidth != 0 && media.videoHeight != 0) {
-            ratio = media.videoWidth / media.videoHeight;
-          }
+          ratio = media.videoWidth / media.videoHeight;
           break;
       }
-      console.log("Setting ratio", ratio, "for element", media);
-      media.style.setProperty("--ratio", ratio);
+      if (ratio != NaN) {
+        console.log("Setting ratio", ratio, "for element", media);
+        media.style.setProperty("--ratio", ratio);
+      }
     }
       switch (media.tagName) {
         case "IMG":
@@ -48,12 +59,30 @@ function setRatios() {
 setRatios();
 
 function checkOffsets() {
+  const ignoredTagNames = new Set([
+    "THEAD",
+    "TBODY",
+    "TFOOT",
+    "TR",
+    "TD",
+    "TH",
+  ]);
+  const cell = gridCellDimensions();
   const elements = document.querySelectorAll("body :not(.debug-grid, .debug-toggle)");
   for (const element of elements) {
-    const offset = element.offsetTop % 10;
-    if(element.offsetParent == document.body && offset > 0) {
+    if (ignoredTagNames.has(element.tagName)) {
+      continue;
+    }
+    const rect = element.getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) {
+      continue;
+    }
+    const top = rect.top + window.scrollY;
+    const left = rect.left + window.scrollX;
+    const offset = top % (cell.height / 2);
+    if(offset > 0) {
       element.classList.add("off-grid");
-      console.error("Incorrect vertical offset:", element, element.offsetTop % 20);
+      console.error("Incorrect vertical offset for", element, "with remainder", top % cell.height, "when expecting divisible by", cell.height / 2);
     } else {
       element.classList.remove("off-grid");
     }

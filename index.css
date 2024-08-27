@@ -30,10 +30,6 @@
 }
 
 
-*:first-child {
-  margin: 0;
-}
-
 * + * {
   margin-top: var(--line-height);
 }
@@ -69,13 +65,14 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--bold-weight);
-  margin: calc(var(--line-height) * 2) 0 0;
+  margin: calc(var(--line-height) * 2) 0 var(--line-height);
   line-height: var(--line-height);
 }
 
 h1 {
   font-size: 2rem;
   line-height: calc(2 * var(--line-height));
+  margin-bottom: calc(var(--line-height) * 2);
   text-transform: uppercase;
 }
 h2 {
@@ -111,7 +108,7 @@ a:link, a:visited {
 }
 
 p {
-  margin-top: var(--line-height);
+  margin-bottom: var(--line-height);
 }
 
 strong {
@@ -136,7 +133,7 @@ table {
   top: calc(var(--line-height) / 2);
   width: calc(round(down, 100%, 1ch));
   border-collapse: collapse;
-  margin: var(--line-height) 0 calc(var(--line-height) * 3);
+  margin: 0 0 calc(var(--line-height) * 2);
 }
 
 th, td {
@@ -168,6 +165,9 @@ th {
 .header {
   margin-bottom: calc(var(--line-height) * 2);
 }
+.header h1 {
+  margin: 0;
+}
 .header tr td:last-child {
   text-align: right;
 }
@@ -184,11 +184,12 @@ img, video {
   display: block;
   width: 100%;
   padding-bottom: calc(
-    round(
-      nearest, 
-      round(up, var(--real-height), var(--line-height)) - var(--real-height),
-      1px
-    )
+      round(
+        up, 
+        var(--real-height), 
+        var(--line-height)
+      ) 
+      - var(--real-height)
   );
   object-fit: contain;
 }
@@ -196,10 +197,13 @@ img, video {
 details {
   border: var(--border-thickness) solid var(--text-color);
   padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
+  margin-bottom: var(--line-height);
 }
 
 summary {
   font-weight: 600;
+}
+details[open] summary {
   margin-bottom: var(--line-height);
 }
 
@@ -207,6 +211,9 @@ details ::marker {
   display: inline-block;
   content: '►';
   margin: 0;
+}
+details[open] ::marker {
+  content: '▼';
 }
 
 details :last-child {
@@ -216,6 +223,10 @@ details :last-child {
 pre {
   white-space: pre;
   overflow-x: auto;
+  margin: var(--line-height) 0;
+}
+figure pre {
+  margin: 0;
 }
 
 pre, code {
@@ -239,7 +250,7 @@ figcaption {
 
 ul, ol {
   padding: 0;
-  margin: var(--line-height) 0;
+  margin: 0 0 var(--line-height);
 }
 
 ul {
@@ -251,8 +262,12 @@ ol {
   counter-reset: item;
   padding: 0;
 }
-ol ol {
+ol ul,
+ol ol,
+ul ol,
+ul ul {
   padding: 0 0 0 3ch;
+  margin: 0;
 }
 ol li:before { 
   content: counters(item, ".") ". ";
@@ -395,6 +410,7 @@ label input {
   display: flex;
   gap: 1ch;
   width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
+  margin-bottom: var(--line-height);
 }
 
 .grid > *,
