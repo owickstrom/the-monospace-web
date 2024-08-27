@@ -501,7 +501,6 @@ label input {
 }
 
 .chart ol[reversed] li:nth-child(odd) {
-  /* list-style: decimal; */
   content: '';
 }
 
