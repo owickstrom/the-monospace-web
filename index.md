@@ -137,7 +137,7 @@ And inputs:
 ## Grids
 
 Add the `grid` class to a container to divide up the horizontal space evenly for the cells.
-Not that it maintains the monospace, so the total width might not be 100%.
+Note that it maintains the monospace, so the total width might not be 100%.
 Here are six grids with increasing cell count:
 
 <div class="grid"><input readonly value="1" /></div>
