@@ -203,6 +203,7 @@ details {
 
 summary {
   font-weight: var(--font-weight-medium);
+  cursor: pointer;
 }
 details[open] summary {
   margin-bottom: var(--line-height);
