@@ -13,6 +13,19 @@ function gridCellDimensions() {
 function adjustMediaPadding() {
   const cell = gridCellDimensions();
 
+  function setHeightFromRatio(media, ratio) {
+      const rect = media.getBoundingClientRect();
+      const realHeight = rect.width / ratio;
+      const diff = cell.height - (realHeight % cell.height);
+      media.style.setProperty("padding-bottom", `${diff}px`);
+  }
+
+  function setFallbackHeight(media) {
+      const rect = media.getBoundingClientRect();
+      const height = Math.round((rect.width / 2) / cell.height) * cell.height;
+      media.style.setProperty("height", `${height}px`);
+  }
+
   function onMediaLoaded(media) {
     var width, height;
     switch (media.tagName) {
@@ -26,11 +39,9 @@ function adjustMediaPadding() {
         break;
     }
     if (width > 0 && height > 0) {
-      const rect = media.getBoundingClientRect();
-      const ratio = width / height;
-      const realHeight = rect.width / ratio;
-      const diff = cell.height - (realHeight % cell.height);
-      media.style.setProperty("padding-bottom", `${diff}px`);
+      setHeightFromRatio(media, width / height);
+    } else {
+      setFallbackHeight(media);
     }
   }
 
@@ -43,7 +54,7 @@ function adjustMediaPadding() {
         } else {
           media.addEventListener("load", () => onMediaLoaded(media));
           media.addEventListener("error", function() {
-              console.error(media);
+              setFallbackHeight(media);
           });
         }
         break;
@@ -57,7 +68,7 @@ function adjustMediaPadding() {
           default:
             media.addEventListener("loadeddata", () => onMediaLoaded(media));
             media.addEventListener("error", function() {
-                console.error(media);
+              setFallbackHeight(media);
             });
             break;
         }

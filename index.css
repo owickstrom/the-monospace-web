@@ -189,6 +189,10 @@ img, video {
   width: 100%;
   object-fit: contain;
 }
+img {
+  font-style: italic;
+  color: var(--text-color-alt);
+}
 
 details {
   border: var(--border-thickness) solid var(--text-color);
