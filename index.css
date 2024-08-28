@@ -188,6 +188,7 @@ img, video {
   display: block;
   width: 100%;
   object-fit: contain;
+  overflow: hidden;
 }
 img {
   font-style: italic;
