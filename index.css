@@ -57,6 +57,7 @@ body {
   padding: var(--line-height) 2ch;
   max-width: calc(min(80ch, round(down, 100%, 1ch)));
   line-height: var(--line-height);
+  overflow-x: hidden;
 }
 
 @media screen and (max-width: 480px) {
@@ -219,6 +220,7 @@ pre {
   white-space: pre;
   overflow-x: auto;
   margin: var(--line-height) 0;
+  overflow-y: hidden;
 }
 figure pre {
   margin: 0;
@@ -235,6 +237,7 @@ code {
 figure {
   margin: calc(var(--line-height) * 2) 3ch;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 figcaption {
