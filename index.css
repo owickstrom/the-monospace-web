@@ -384,7 +384,7 @@ label input {
 .tree ul li {
   position: relative;
   padding-left: 1.5ch;
-  margin-left: 1.5ch;
+  margin-left: calc(1.5ch - var(--border-thickness));
   border-left: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:before {
@@ -398,6 +398,7 @@ label input {
 }
 .tree ul li:last-child {
   border-left: none;
+  padding-left: calc(1.5ch + var(--border-thickness));
 }
 .tree ul li:last-child:after {
   position: absolute;
