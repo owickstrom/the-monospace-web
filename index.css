@@ -311,7 +311,8 @@ input, button, textarea {
   -webkit-appearance: none;
 }
 
-input[type=checkbox] {
+input[type=checkbox],
+input[type=radio] {
   display: inline-grid;
   place-content: center;
   vertical-align: top;
@@ -319,7 +320,8 @@ input[type=checkbox] {
   height: var(--line-height);
   cursor: pointer;
 }
-input[type=checkbox]:checked:before {
+input[type=checkbox]:checked:before,
+input[type=radio]:checked:before {
   content: "";
   width: 1ch;
   height: calc(var(--line-height) / 2);
