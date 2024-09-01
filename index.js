@@ -14,7 +14,7 @@ function adjustMediaPadding() {
   const cell = gridCellDimensions();
 
   function setHeightFromRatio(media, ratio) {
-      const rect = media.getBoundingClientRect();
+	  const rect = getComputedStyle(media);
       const realHeight = rect.width / ratio;
       const diff = cell.height - (realHeight % cell.height);
       media.style.setProperty("padding-bottom", `${diff}px`);
