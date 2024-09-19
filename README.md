@@ -44,18 +44,28 @@
 
   - For installation on other platforms follow the [official docs](https://pandoc.org/installing.html)
 
-## Development & Deployment
+## Development
 
 - Modify the content in [index.md](./index.md)
 
 - Generate the corresponding `index.html` file
 
   ```
-  yarn generate
+  yarn build
   ```
 
-- Deploy the app
+- Deploy app locally
 
   ```
   yarn serve public
   ```
+
+## Deployment
+
+- Generate the corresponding `index.html` file
+
+  ```
+  yarn build
+  ```
+
+- Configure nginx server and set root directive to the [public directory](./public) in this repo
