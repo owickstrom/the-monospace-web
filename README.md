@@ -1,16 +1,61 @@
-# The Monospace Web
+# blog-template
 
-Monospace fonts are dear to many of us. Some find them more readable, consistent, and beautiful, than their proportional alternatives. Maybe we’re just brainwashed from spending years in terminals? Or are we hopelessly nostalgic? I’m not sure. But I like them, and that’s why I started experimenting with all-monospace Web.
+## Setup
 
-https://owickstrom.github.io/the-monospace-web/
+- Clone the repository
 
-## Build
+  ```
+  git clone git@github.com:deep-stack/blog-template.git
 
-```
-nix develop # or `direnv allow .`
-make
-```
+  cd blog-template
+  ```
 
-## License
+- Install dependencies
 
-[MIT](LICENSE.md)
+  ```
+  yarn
+  ```
+
+- Install `pandoc`
+
+  - Download the latest release of Pandoc from the [official site](https://github.com/jgm/pandoc/releases)
+
+    ```bash
+    wget https://github.com/jgm/pandoc/releases/download/<version>/pandoc-<version>-linux-<system-arch>.tar.gz
+    ```
+
+  - Unpack the tarball
+
+    ```
+    tar -xvzf path/to/downloaded/release/pandoc-<version>-linux-<system-arch>.tar.gz
+    ```
+
+  - Move Pandoc to `/usr/local/bin`:
+
+    ```
+    sudo mv pandoc-<version>/bin/pandoc /usr/local/bin/
+    ```
+
+  - Verify installation
+
+    ```
+    pandoc --version
+    ```
+
+  - For installation on other platforms follow the [official docs](https://pandoc.org/installing.html)
+
+## Development & Deployment
+
+- Modify the content in [index.md](./index.md)
+
+- Generate the corresponding `index.html` file
+
+  ```
+  yarn generate
+  ```
+
+- Deploy the app
+
+  ```
+  yarn serve public
+  ```

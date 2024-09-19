@@ -1,0 +1,15 @@
+{
+  "name": "blog-template",
+  "version": "1.0.0",
+  "description": "blog template",
+  "main": "server.js",
+  "scripts": {
+    "generate": "./scripts/generate.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.2.3"
+  }
+}

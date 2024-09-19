@@ -26,19 +26,6 @@ $endfor$
 $if(math)$
   $math$
 $endif$
-  <style>
-    .title {
-      text-align: left;
-      font-size: 2em;
-      margin-bottom: 0;
-    }
-    .subtitle {
-      text-align: left;
-      font-size: 1em;
-      color: #555;
-      margin-top: 0;
-    }
-  </style>
 </head>
 <body>
 $for(include-before)$
@@ -46,38 +33,44 @@ $include-before$
 $endfor$
 <table class="header">
   <tr>
-    <td colspan="2" class="width-auto">
+    <td colspan="2" rowspan="2" class="width-auto">
       <h1 class="title">$title$</h1>
+      <span class="subtitle">$subtitle$</span>
     </td>
+    <th>Version</th>
+    <td class="width-min">$version$</td>
   </tr>
   <tr>
-    <th class="width-min">Organization</th>
-    <td class="width-auto">$organization$</td>
+    <th>Updated</th>
+    <td class="width-min"><time style="white-space: pre;">$date$</time></td>
   </tr>
   <tr>
-    <th class="width-min">Org URL</th>
-    <td class="width-auto"><a href="$organization-url$">$organization-url$</a></td>
-  </tr>
+    <th class="width-min">Author</th>
+    <td class="width-auto"><a href="$author-url$"><cite>$author$</cite></a></td>
+    <th class="width-min">License</th>
+    <td>MIT</td>
   </tr>
 </table>
+<label class="debug-toggle-label"><input type="checkbox" class="debug-toggle" /> Debug mode</label>
 $if(abstract)$
 <div class="abstract">
-  <div class="abstract-title">$abstract-title$</div>
-  $abstract$
+<div class="abstract-title">$abstract-title$</div>
+$abstract$
 </div>
 $endif$
 $if(toc)$
 <nav id="$idprefix$TOC" role="doc-toc">
-  $if(toc-title)$
-    <h2 id="$idprefix$toc-title">$toc-title$</h2>
-  $endif$
-  $table-of-contents$
+$if(toc-title)$
+<h2 id="$idprefix$toc-title">$toc-title$</h2>
+$endif$
+$table-of-contents$
 </nav>
 $endif$
 $body$
 $for(include-after)$
 $include-after$
 $endfor$
+  <div class="debug-grid"></div>
   <script src="index.js"></script>
 </body>
 </html>
