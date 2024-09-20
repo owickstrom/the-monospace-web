@@ -19,7 +19,6 @@ An expected canonical use case for transient storage is cheaper reentrancy locks
 
 ![A simple reentrancy lock implemented with the help of transient storage](code-block.jpg)
 
-<hr>
 
 ## Bug in Deduplication of Verbatim Blocks
 **Posted on: 2024-09-18**
@@ -40,7 +39,7 @@ The conditions under which the bug might be triggered are as follows:
 Note that the Block Deduplicator is enabled by default when the optimizer is enabled.
 
 If your project does not include contracts written purely in Yul or does not use verbatim, then there is no risk of it being impacted.
-<hr>
+
 
 ## FullInliner Non-Expression-Split Argument Evaluation Order Bug
 **Posted on: 2024-09-18**
@@ -64,3 +63,7 @@ We assigned the bug an overall score of "low". The bug has "high" severity in af
 It is not generally possible for the user to precisely control whether the code coming out of the code generator is or is not in this form. However, it is guaranteed that the code passed through the ExpressionSplitter step (x) is expression-split, and the opposite is true for code that is run through the ExpressionJoiner step (j). Therefore sequences where i is always preceded by x with no intervening occurrences of j are safe. Other sequences may or may not be affected depending on their exact structure.
 
 Lack of user-provided Yul code (in the form of inline assembly or pure Yul input) significantly decreases the chances of triggering the bug.
+
+---
+
+**Note**: Placeholder content for the blog template has been taken from <https://soliditylang.org/blog>
