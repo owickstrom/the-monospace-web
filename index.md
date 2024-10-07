@@ -1,69 +1,58 @@
 ---
-title: Solidity Blogs
+title: Reentrancy
 organization: DeepStack Software Pvt. Ltd.
 organization-url: "https://www.deepstacksoft.com"
 lang: en
-toc-title: Blogs
+toc-title: Contents
 ---
 
-## Transient Storage Opcodes in Solidity 0.8.24
 **Posted on: 2024-09-18**
 
-Solidity 0.8.24 supports the opcodes included in the upcoming Cancun hardfork and, in particular, the transient storage opcodes TSTORE and TLOAD as per EIP-1153.
+## Introduction
 
-Transient storage is a long-awaited feature on the EVM level that introduces another data location besides memory, storage, calldata (and return-data and code). The new data location behaves as a key-value store similar to storage with the main difference being that data in transient storage is not permanent, but is scoped to the current transaction only, after which it will be reset to zero. Consequently, transient storage is as cheap as warm storage access, with TSTORE and TLOAD priced at 100 gas.
+In Solidity smart contracts, external calls to unknow or untrusted contracts can expose your contract to a **reentrancy attack**. A reentrancy attack occurs when an attacker repeatedly calls the vulnerable contract's function before the original function completes, exploiting the contract's logic to withdraw funds multiple times before the state is updated.
 
-Users should note that the compiler does not yet allow using transient as a data location in high-level Solidity code. For the time being, data stored in this location can only be accessed using the TSTORE and TLOAD opcodes in inline assembly.
+This post will walk through the mechanics of a reentrancy attack, and how to protect your contracts using two common techniques: **Checks-Effects-Interactions (CEI)** and **Reentrancy Guard**.
 
-An expected canonical use case for transient storage is cheaper reentrancy locks, which can be readily implemented with the opcodes as showcased below. However, given the caveats mentioned in the specification of EIP-1153, utmost care has to be taken for more advanced use cases of transient storage to preserve the composability of your smart contract. To raise awareness of this issue, for the time being, the compiler will emit a warning on use of tstore in assembly.
+## How Reentrancy Attacks Work
 
-![A simple reentrancy lock implemented with the help of transient storage](code-block.jpg)
+Let’s break down how the reentrancy attack works using two contracts: `Victim` and `Attack`
 
+![](code-1.png)
 
-## Bug in Deduplication of Verbatim Blocks
-**Posted on: 2024-09-18**
+- **Deposit Funds**: The attacker calls the `attack()` function in the `Attack` contract. This calls `victim.deposit()` to deposit some `ETH` into the `Victim` contract. The `Victim` contract updates the attacker's balance.<br>
+- **Initial Withdrawal:** Next, the `attack()` function calls `victim.withdraw()` to withdraw the deposited `ETH` from the `Victim` contract. Here, the vulnerability is triggered because `withdraw()` sends the ETH back to the attacker before updating the balance.
+- **Fallback Trigger:** Since `Victim.withdraw()` sends ETH to the attacker, the attacker's contract's fallback function (`fallback()`) is called, which once again calls `victim.withdraw()`. This happens before the balance of the attacker is updated in `Victim`, allowing them to withdraw more than they originally deposited.
+- **Repeat:** This recursive call keeps draining funds from the `Victim` contract until all ETH is withdrawn or the transaction runs out of gas.
 
-On October 24, Ori Pomerantz reported a bug affecting the use of verbatim builtin in Yul code. After investigating, the team was able to confirm the problem and locate its origin. The bug existed in the Block Deduplicator optimizer step, wherein equivalent assembly blocks are identified and merged. verbatim assembly items surrounded by identical opcodes were incorrectly considered identical and unified.
+## How to Prevent Reentrancy Attacks
 
-The bug existed since version 0.8.5, which introduced verbatim, and only affected pure Yul compilation with optimization enabled. Solidity code or Yul used in inline assembly blocks would not trigger it.
+Here are two methods you can use to protect your contract from reentrancy attacks
 
-The use of verbatim is uncommon and the conditions which trigger the bug (two or more verbatim items surrounded by identical opcodes) are very specific. Also, to the extent of the investigations made by the team, there is no evidence that this could be used as an exploit or attack vector. While, if present, the impact of the bug is severe, its likelihood is very low. Considering that, the team assigned the bug an overall score of low.
+### Checks-Effects-Interactions (CEI) Pattern
 
-Which Contracts Are Affected?
-The conditions under which the bug might be triggered are as follows:
+Refactoring your contract code in way that updates the state variables before handing over the execution control to some unknown address
 
-1. Compilation of pure Yul code.
-2. Multiple calls to verbatim builtins with different data.
-3. Block Deduplicator optimizer step being in use.
+![](code-2.png)
 
-Note that the Block Deduplicator is enabled by default when the optimizer is enabled.
+By shifting the (`balances[msg.sender] = 0;`) before the external call, this way the attacker contract won't be able to take advantage of later state change since the balance will already be set to 0, preventing further withdrawals.
 
-If your project does not include contracts written purely in Yul or does not use verbatim, then there is no risk of it being impacted.
+### Reentrancy Guard
 
+Another method is to use a **reentrancy guard**, which is a simple boolean flag that locks the contract during execution, preventing any reentrant calls.
 
-## FullInliner Non-Expression-Split Argument Evaluation Order Bug
-**Posted on: 2024-09-18**
+Here’s how you can implement it manually:
 
-On July 4, 2023, Robert Chen from OtterSec discovered a bug in the Yul optimizer.
+![](code-3.png)
 
-The earliest affected version of the compiler is 0.6.7, which introduced the ability to modify the optimizer step sequence. Solidity version 0.8.21, released on July 19, 2023, provides a fix.
+Alternatively, you can use **OpenZeppelin's ReentrancyGuard** to handle this for you. Simply inherit the `ReentrancyGuard` contract and use the `nonReentrant` modifier
 
-We assigned the bug an overall score of "low". The bug has "high" severity in affected cases, but we deem the likelihood of it actually affecting deployed contracts as "very low".
+![](code-4.png)
 
-* The prerequisite to trigger the bug is to meet all of the following conditions:
+The `nonReentrant` modifier ensures that the `withdraw()` function cannot be called again until it completes execution.
 
-* The use of Yul optimizer.
+## Conclusion
 
-* The use of a custom optimizer step sequence.
+Reentrancy attacks can be devastating for smart contracts, allowing attackers to drain funds by exploiting logic vulnerabilities. By using the **Checks-Effects-Interactions (CEI)** pattern or implementing **Reentrancy Guard**, you can safeguard your contracts from this common attack vector.
 
-* Presence of the FullInliner step (i) in the sequence.
-
-* Code in non-expression-split form being able to reach the FullInliner step.
-
-It is not generally possible for the user to precisely control whether the code coming out of the code generator is or is not in this form. However, it is guaranteed that the code passed through the ExpressionSplitter step (x) is expression-split, and the opposite is true for code that is run through the ExpressionJoiner step (j). Therefore sequences where i is always preceded by x with no intervening occurrences of j are safe. Other sequences may or may not be affected depending on their exact structure.
-
-Lack of user-provided Yul code (in the form of inline assembly or pure Yul input) significantly decreases the chances of triggering the bug.
-
----
-
-**Note**: Placeholder content for the blog template has been taken from <https://soliditylang.org/blog>
+Always ensure your contract’s state is updated before external calls or use established libraries like **OpenZeppelin** to simplify protection measures.
