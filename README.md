@@ -31,7 +31,6 @@ make
 	* You'll need to replace the file names with your own.
 	* You can and should automate this process with a batch script.
 7. Congratulations! Open `output.html` to see your built website!
-8. There is also a video guide here: XXX todo XXX
 
 ## License
 
