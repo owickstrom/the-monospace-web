@@ -18,9 +18,8 @@ make
 ```
 3. You can figure out the rest from there idk I'm not doing this
 
-### Regular Users
-[There is currently no plug & play method to build websites using the Monospace Web.](https://pbs.twimg.com/media/GYWlOmEXQAA9nWF?format=png&name=small)
 
+### [Regular Users](https://pbs.twimg.com/media/GYWlOmEXQAA9nWF?format=png&name=small)
 1. Install [Pandoc](https://pandoc.org/), if you are running Windows, the version of the installer that you want is "windows-x86_64".
 2. Ignore the other dependency. It has no easy install method and all it does is automatically refresh your website when you make edits. You can just close the tab and open the html file when you make an edit.
 3. Create your website as a markdown file, using Pandoc's markdown formattng. [(Here is an example file)](https://raw.githubusercontent.com/owickstrom/the-monospace-web/refs/heads/main/index.md), compare it to the [live website](https://owickstrom.github.io/the-monospace-web/) to figure out what makes what. You can also [click here](https://garrettgman.github.io/rmarkdown/authoring_pandoc_markdown.html) to see a more in-depth formatting guide.
