@@ -188,11 +188,12 @@ p {
   hyphens: auto;
 }
 
-img, video {
+img,
+video {
   display: block;
   width: 100%;
-  object-fit: contain;
-  overflow: hidden;
+  height: 100%;
+  object-fit: cover;
 }
 img {
   font-style: italic;
