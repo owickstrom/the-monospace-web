@@ -9,6 +9,9 @@ function gridCellDimensions() {
   return { width: rect.width, height: rect.height };
 }
 
+// Media that already have their load listeners: this runs again on every resize.
+const listening = new WeakSet();
+
 // Add padding to each media to maintain grid.
 function adjustMediaPadding() {
   const cell = gridCellDimensions();
@@ -16,7 +19,8 @@ function adjustMediaPadding() {
   function setHeightFromRatio(media, ratio) {
       const rect = media.getBoundingClientRect();
       const realHeight = rect.width / ratio;
-      const diff = cell.height - (realHeight % cell.height);
+      // nothing to add when the height is already a whole number of lines
+      const diff = (cell.height - (realHeight % cell.height)) % cell.height;
       media.style.setProperty("padding-bottom", `${diff}px`);
   }
 
@@ -46,12 +50,14 @@ function adjustMediaPadding() {
   }
 
   const medias = document.querySelectorAll("img, video");
-  for (media of medias) {
+  // const: each listener needs its own media, not the last one of the loop
+  for (const media of medias) {
     switch (media.tagName) {
       case "IMG":
         if (media.complete) {
           onMediaLoaded(media);
-        } else {
+        } else if (!listening.has(media)) {
+          listening.add(media);
           media.addEventListener("load", () => onMediaLoaded(media));
           media.addEventListener("error", function() {
               setFallbackHeight(media);
@@ -66,10 +72,13 @@ function adjustMediaPadding() {
             onMediaLoaded(media);
             break;
           default:
-            media.addEventListener("loadeddata", () => onMediaLoaded(media));
-            media.addEventListener("error", function() {
-              setFallbackHeight(media);
-            });
+            if (!listening.has(media)) {
+              listening.add(media);
+              media.addEventListener("loadeddata", () => onMediaLoaded(media));
+              media.addEventListener("error", function() {
+                setFallbackHeight(media);
+              });
+            }
             break;
         }
         break;

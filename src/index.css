@@ -90,11 +90,14 @@ h2 {
   text-transform: uppercase;
 }
 
+/* two lines tall with the rule centered on the grid line between them: the same four lines
+   as before, but the box starts and ends on whole lines, so collapsing with a larger margin
+   (a heading's) can't put what follows half a line off */
 hr {
   position: relative;
   display: block;
-  height: var(--line-height);
-  margin: calc(var(--line-height) * 1.5) 0;
+  height: calc(var(--line-height) * 2);
+  margin: var(--line-height) 0;
   border: none;
   color: var(--text-color);
 }
@@ -102,7 +105,7 @@ hr:after {
   display: block;
   content: "";
   position: absolute;
-  top: calc(var(--line-height) / 2 - var(--border-thickness));
+  top: calc(var(--line-height) - var(--border-thickness) * 1.5);
   left: 0;
   width: 100%;
   border-top: calc(var(--border-thickness) * 3) double var(--text-color);
@@ -137,11 +140,22 @@ sub {
   width: calc(1ch / 0.75);
   font-size: .75rem;
 }
+sup {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  vertical-align: super;
+  line-height: 0;
+  width: calc(1ch / 0.75);
+  font-size: .75rem;
+}
 
 table {
   position: relative;
   top: calc(var(--line-height) / 2);
-  width: calc(round(down, 100%, 1ch));
+  /* center collapsed borders on grid lines so every cell's text lands on the grid */
+  left: calc(var(--border-thickness) / -2);
+  width: calc(round(down, 100%, 1ch) + var(--border-thickness));
   border-collapse: collapse;
   margin: 0 0 calc(var(--line-height) * 2);
 }
@@ -157,7 +171,9 @@ th, td {
   vertical-align: top;
   text-align: left;
 }
-table tbody tr:first-child > * {
+/* the table's first row, whether in thead or the first tbody */
+table thead tr:first-child > *,
+table tbody:not(thead ~ tbody, tbody ~ tbody) tr:first-child > * {
   padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
 }
 
@@ -201,7 +217,7 @@ img {
 
 details {
   border: var(--border-thickness) solid var(--text-color);
-  padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
+  padding: calc(var(--line-height) - var(--border-thickness)) calc(1ch - var(--border-thickness));
   margin-bottom: var(--line-height);
 }
 
@@ -260,6 +276,23 @@ ul, ol {
   padding: 0;
   margin: 0 0 var(--line-height);
 }
+blockquote {
+  margin: 0 0 var(--line-height);
+  padding-left: calc(2ch - var(--border-thickness));
+  border-left: var(--border-thickness) solid var(--text-color);
+}
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+dl {
+  margin: 0 0 var(--line-height);
+}
+dt {
+  font-weight: var(--font-weight-bold);
+}
+dd {
+  margin: 0 0 0 2ch;
+}
 
 ul {
   list-style-type: square;
@@ -277,10 +310,18 @@ ul ul {
   padding: 0 0 0 3ch;
   margin: 0;
 }
-ol li:before { 
-  content: counters(item, ".") ". ";
+/* float keeps the number on the first line when the item starts with a block (loose lists, footnotes) */
+ol li:before {
+  float: left;
+  white-space: pre;
+  content: counter(item) ". ";
   counter-increment: item;
   font-weight: var(--font-weight-medium);
+}
+/* counters() only when nested: a counter's scope extends to following siblings, so a later,
+   unrelated list would otherwise be numbered as a sublist of the previous one */
+li ol li:before {
+  content: counters(item, ".") ". ";
 }
 
 li {
@@ -393,8 +434,8 @@ label input {
 }
 .tree ul li {
   position: relative;
-  padding-left: 1.5ch;
-  margin-left: 1.5ch;
+  padding-left: calc(1.5ch - var(--border-thickness) / 2);
+  margin-left: calc(1.5ch - var(--border-thickness) / 2);
   border-left: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:before {
@@ -407,15 +448,15 @@ label input {
   border-bottom: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:last-child {
-  border-left: none;
+  border-left-color: transparent;
 }
 .tree ul li:last-child:after {
   position: absolute;
   display: block;
   top: 0;
-  left: 0;
+  left: calc(-1 * var(--border-thickness));
   content: "";
-  height: calc(var(--line-height) / 2);
+  height: calc(var(--line-height) / 2 + var(--border-thickness));
   border-left: var(--border-thickness) solid var(--text-color);
 }
 
@@ -455,6 +496,8 @@ label input {
     repeating-linear-gradient(var(--color) 0 1px, transparent 1px 100%),
     repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
   background-size: 1ch var(--line-height);
+  /* -0.5px: center the 1px lines on cell boundaries instead of inside each cell */
+  background-position: -0.5px -0.5px;
   margin: 0;
 }
 
